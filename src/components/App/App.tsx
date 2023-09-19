@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
-import Spiner from 'components/Spiner';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import Header from 'components/Header';
 
 function App() {
   return (
-    <Suspense fallback={<Spiner />}>
-      133
+    <Suspense fallback={<ProgressSpinner />}>
+      <Header />
     </Suspense>
   );
 }
