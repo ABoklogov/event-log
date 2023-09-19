@@ -12,7 +12,7 @@ function FormSearch() {
   }
 
   return (
-    <div>
+    <div className={s.formSearch}>
       <AutoComplete
         value={value}
         suggestions={items}
@@ -20,7 +20,9 @@ function FormSearch() {
         onChange={(e) => setValue(e.value)}
       />
 
-      <Button className={s.btnSearch} label="Поиск" />
+      <div className={s.btnSearch}>
+        <Button label="Поиск" />
+      </div>
     </div>
   );
 }

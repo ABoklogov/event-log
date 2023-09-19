@@ -1,3 +1,7 @@
+.formSearch {
+  display: flex;
+}
+
 .btnSearch {
   margin-left: 30px;
 }
