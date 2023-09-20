@@ -24,7 +24,7 @@ export const fetchEvents = () => async (dispatch: Dispatch, getState: () => Root
         dispatch(loadingSetEvents(false));
         dispatch(errorSetEvents(''));
 
-        console.log(data);
+        // console.log(data);
 
         dispatch(setEvents(data));
       };

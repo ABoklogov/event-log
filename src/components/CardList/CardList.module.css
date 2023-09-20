@@ -1,0 +1,23 @@
+.cardList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: -10px;
+  padding: 10px;
+}
+
+.cardItem {
+  list-style-type: none;
+  width: calc((100% - 6 * 10px) / 3);
+  margin: 10px;
+}
+
+.cardItem>[class~="p-card"] {
+  height: 200px;
+}
+
+.cardItem>[class~="p-card-content"] {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

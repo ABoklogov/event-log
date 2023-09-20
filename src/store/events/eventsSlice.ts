@@ -4,9 +4,9 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import Event from 'interfaces/Events.interface';
 
 interface EventsState {
-  items: Event[],
-  isLoading: boolean,
-  error: string,
+  items: Event[];
+  isLoading: boolean;
+  error: string;
 }
 
 const initialState: EventsState = {

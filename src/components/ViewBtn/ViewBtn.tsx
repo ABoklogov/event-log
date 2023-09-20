@@ -1,5 +1,6 @@
 import { Button } from 'primereact/button';
-import { useState } from 'react';
+import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { setView } from 'store/view/viewSlice';
 
 const styleNotActive = {
   backgroundColor: 'var(--highlight-bg)',
@@ -7,7 +8,8 @@ const styleNotActive = {
 };
 
 function ViewBtn() {
-  const [view, setView] = useState<'table' | 'card'>('table');
+  const view = useAppSelector((state) => state.view.value);
+  const dispatch = useAppDispatch();
 
   return (
     <span className="p-buttonset">
@@ -15,13 +17,13 @@ function ViewBtn() {
         label="Таблица"
         icon="pi pi-list"
         style={view === 'table' ? undefined : styleNotActive}
-        onClick={() => setView('table')}
+        onClick={() => dispatch(setView('table'))}
       />
       <Button
         label="Карточки"
         icon="pi pi-th-large"
         style={view === 'card' ? undefined : styleNotActive}
-        onClick={() => setView('card')}
+        onClick={() => dispatch(setView('card'))}
       />
     </span>
   );

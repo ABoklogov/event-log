@@ -15,7 +15,7 @@ const events: Event[] = [
     date: '2023-08-28T00:00:00',
     importance: 'Высокая',
     equipment: 'Коммутатор',
-    message: 'Потеряно Сетевое соединение',
+    message: 'Потеряно сетевое соединение',
     responsible: 'Капустин А.А.',
     read: false
   },
