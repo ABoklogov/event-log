@@ -1,6 +1,8 @@
-const events = [
+import Event from 'interfaces/Events.interface';
+
+const events: Event[] = [
   {
-    id: 1,
+    id: '1',
     date: '2023-08-27T00:00:00',
     importance: 'Высокая',
     equipment: 'Вегас',
@@ -9,7 +11,7 @@ const events = [
     read: false
   },
   {
-    id: 2,
+    id: '2',
     date: '2023-08-28T00:00:00',
     importance: 'Высокая',
     equipment: 'Коммутатор',
@@ -18,7 +20,7 @@ const events = [
     read: false
   },
   {
-    id: 3,
+    id: '3',
     date: '2023-08-29T00:00:00',
     importance: 'Низкая',
     equipment: 'Люк',
@@ -27,7 +29,7 @@ const events = [
     read: false
   },
   {
-    id: 4,
+    id: '4',
     date: '2023-08-23T00:00:00',
     importance: 'Высокая',
     equipment: 'ИБП',
@@ -36,7 +38,7 @@ const events = [
     read: false
   },
   {
-    id: 5,
+    id: '5',
     date: '2023-08-22T00:00:00',
     importance: 'Критическая',
     equipment: 'Трансформатор',
@@ -45,7 +47,7 @@ const events = [
     read: false
   },
   {
-    id: 6,
+    id: '6',
     date: '2023-08-24T00:00:00',
     importance: 'Критическая',
     equipment: 'ЛВС',
@@ -54,7 +56,7 @@ const events = [
     read: false
   },
   {
-    id: 7,
+    id: '7',
     date: '2023-08-12T00:00:00',
     importance: 'Высокая',
     equipment: 'Вегас',
@@ -64,10 +66,12 @@ const events = [
   }
 ];
 
-function getEvents() {
+type GetEvents = () => Promise<Event[]>;
+
+const getEvents: GetEvents = function () {
   return new Promise((resolve) => {
     setTimeout(() => resolve(events), 250)
   })
 };
 
-export { getEvents }
+export { getEvents };

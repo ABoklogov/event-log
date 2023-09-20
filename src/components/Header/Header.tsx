@@ -9,8 +9,8 @@ function Header() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchEvents())
-  })
+    dispatch(fetchEvents());
+  }, [])
 
   return (
     <div className={s.header}>

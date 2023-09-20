@@ -1,3 +1,6 @@
+import { Dispatch } from '@reduxjs/toolkit';
+import type { RootState } from 'store';
+import Event from 'interfaces/Events.interface';
 import { getEvents } from "services/api";
 import {
   setEvents,
@@ -5,7 +8,7 @@ import {
   errorSetEvents,
 } from './eventsSlice';
 
-export const fetchEvents = () => async (dispatch, getState) => {
+export const fetchEvents = () => async (dispatch: Dispatch, getState: () => RootState) => {
   const { events } = getState();
 
   try {
@@ -27,8 +30,10 @@ export const fetchEvents = () => async (dispatch, getState) => {
       };
     };
   } catch (error) {
-    dispatch(loadingSetEvents(false));
-    dispatch(errorSetEvents(error.message));
-    console.log(error.message);
+    if (error instanceof Error) {
+      dispatch(loadingSetEvents(false));
+      dispatch(errorSetEvents(error.message));
+      console.log(error.message);
+    };
   };
 };
