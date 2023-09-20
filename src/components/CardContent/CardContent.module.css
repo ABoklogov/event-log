@@ -1,0 +1,56 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contentBody {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.contentRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 70%;
+}
+
+.contentSubBox,
+.contentFooter {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.contentSubBox {
+  margin-bottom: 10px;
+}
+
+.contentFooter {
+  margin-top: 20px;
+}
+
+.contentAvatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.label,
+.value {
+  font-size: 13px;
+}
+
+.label {
+  color: #7f7f7f;
+  min-width: 110px;
+}
+
+.value {
+  color: #000000;
+}

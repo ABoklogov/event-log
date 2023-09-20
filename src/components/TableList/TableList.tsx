@@ -22,7 +22,7 @@ function TableList({ events }: Props) {
       dragSelection
       paginator
       rows={5}
-      rowsPerPageOptions={[5, 10, 25, 50]}
+      rowsPerPageOptions={[5, 10, 25]}
     >
       <Column field="date" header="Дата" sortable style={{ width: '25%' }}></Column>
       <Column field="importance" header="Важность" sortable style={{ width: '10%' }}></Column>
