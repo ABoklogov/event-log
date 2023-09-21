@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, KeyboardEvent } from 'react';
 import { useAppDispatch } from 'store/hooks';
 import { readEvents } from 'store/events/eventsOperations';
-import { DataTable } from 'primereact/datatable';
+import { DataTable, DataTableSelectionMultipleChangeEvent } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Badge } from 'primereact/badge';
 import { useKeyPress } from 'hooks/useKeyPress';
@@ -14,14 +14,14 @@ interface Props {
 function TableList({ events }: Props) {
   const [selectedEvents, setSelectedEvents] = useState<Event[]>([]);
   const dispatch = useAppDispatch();
-  // const isSpacePressed = useKeyPress('f');
+  const isSpacePressed = useKeyPress(' ');
   console.log("🚀 ~ TableList :", selectedEvents)
 
   // при нажитии клавиши 'space' отмечаем сообщения на прочтение
-  // useEffect(() => {
-  //   console.log("🚀 ~ useEffect :", selectedEvents)
-  //   if (isSpacePressed) dispatch(readEvents(selectedEvents));
-  // }, [isSpacePressed]);
+  useEffect(() => {
+    console.log("🚀 ~ useEffect :", selectedEvents)
+    if (isSpacePressed) dispatch(readEvents(selectedEvents));
+  }, [isSpacePressed]);
 
   const readIcon = (rowData: Event) => {
     return !rowData.read ? <Badge></Badge> : <></>
@@ -36,7 +36,15 @@ function TableList({ events }: Props) {
       tableStyle={{ minWidth: '50rem' }}
       selectionMode="multiple"
       selection={selectedEvents}
-      onSelectionChange={(e) => setSelectedEvents(e.value)}
+      onSelectionChange={(e: DataTableSelectionMultipleChangeEvent<Event[]>) => {
+        // console.log("🚀 ~ TableList ~ e:", e.originalEvent.nativeEvent)
+        if (e.originalEvent.type !== 'keydown') {
+          setSelectedEvents(e.value)
+        } else {
+          // if (e.originalEvent.code === 'Enter') setSelectedEvents(e.value)
+          // console.log(e.originalEvent);
+        }
+      }}
       dragSelection
       paginator
       rows={5}
