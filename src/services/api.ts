@@ -44,7 +44,7 @@ const events: Event[] = [
     equipment: 'Трансформатор',
     message: 'Недостаточное количество масла',
     responsible: 'Олышанская Е.Г.',
-    read: false
+    read: true
   },
   {
     id: '6',

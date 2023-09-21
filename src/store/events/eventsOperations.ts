@@ -37,3 +37,22 @@ export const fetchEvents = () => async (dispatch: Dispatch, getState: () => Root
     };
   };
 };
+
+export const readEvents = (eventsToRead: Event[]) => async (dispatch: Dispatch, getState: () => RootState) => {
+  // console.log("🚀 ~ readEvents ~ eventsToRead:", eventsToRead)
+  const { events } = getState();
+
+  const totalEvents = events.items.map((stateEl) => {
+    let newEl = stateEl;
+
+    eventsToRead.forEach((findEl) => {
+      if (findEl.id === stateEl.id) {
+        newEl = Object.assign({}, stateEl, { read: true });
+      };
+    });
+    return newEl;
+  });
+  console.log("🚀 ~ totalEvents ~ totalEvents:", totalEvents)
+
+  dispatch(setEvents(totalEvents));
+};

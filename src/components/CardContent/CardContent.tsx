@@ -1,18 +1,33 @@
 import { Card } from 'primereact/card';
 import s from './CardContent.module.css';
 import { Avatar } from 'primereact/avatar';
+import Event from 'interfaces/Events.interface';
 
 interface Props {
+  id: string,
   date: string;
   importance: string;
   equipment: string;
   message: string;
   responsible: string;
+  selectedEvents: Event[];
 };
 
-function CardContant({ date, importance, equipment, message, responsible }: Props) {
+const selectedStyles = {
+  backgroundColor: 'var(--highlight-bg)'
+};
+
+function CardContent({
+  id,
+  date,
+  importance,
+  equipment,
+  message,
+  responsible,
+  selectedEvents
+}: Props) {
   return (
-    <Card>
+    <Card style={selectedEvents.find(el => el.id === id) ? selectedStyles : undefined}>
       <div className={s.content}>
         <div className={s.contentBody}>
           <div className={s.contentRight}>
@@ -50,4 +65,4 @@ function CardContant({ date, importance, equipment, message, responsible }: Prop
   );
 }
 
-export default CardContant;
+export default CardContent;
