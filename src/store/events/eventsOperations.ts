@@ -4,6 +4,7 @@ import Event from 'interfaces/Events.interface';
 import { getEvents } from "services/api";
 import {
   setEvents,
+  setSearchEvents,
   loadingSetEvents,
   errorSetEvents,
 } from './eventsSlice';
@@ -20,36 +21,37 @@ const getLocalStorage = () => {
   return string ? JSON.parse(string) : null;
 };
 
+// получение всех задач
 export const fetchEvents = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { events } = getState();
+  // const { events } = getState();
 
   try {
-    if (events.items.length > 0) {
-      return
-    } else {
-      dispatch(loadingSetEvents(true));
-      // получаем данные из локального хранилища и записываем их в state
-      const localEvents = getLocalStorage();
+    // if (events.items.length > 0) {
+    //   return
+    // } else {
+    dispatch(loadingSetEvents(true));
+    // получаем данные из локального хранилища и записываем их в state
+    const localEvents = getLocalStorage();
 
-      if (localEvents === null) {
-        const data = await getEvents();
+    if (localEvents === null) {
+      const data = await getEvents();
 
-        if (data === undefined) {
-          throw new Error('Server Error!');
-        } else {
-          dispatch(loadingSetEvents(false));
-          dispatch(errorSetEvents(''));
-
-          dispatch(setEvents(data));
-          setLocalStorage(data);
-        };
+      if (data === undefined) {
+        throw new Error('Server Error!');
       } else {
         dispatch(loadingSetEvents(false));
         dispatch(errorSetEvents(''));
 
-        dispatch(setEvents(localEvents));
+        dispatch(setEvents(data));
+        setLocalStorage(data);
       };
+    } else {
+      dispatch(loadingSetEvents(false));
+      dispatch(errorSetEvents(''));
+
+      dispatch(setEvents(localEvents));
     };
+    // };
   } catch (error) {
     if (error instanceof Error) {
       dispatch(loadingSetEvents(false));
@@ -59,6 +61,7 @@ export const fetchEvents = () => async (dispatch: Dispatch, getState: () => Root
   };
 };
 
+// пометка о прочтении
 export const readEvents = (eventsToRead: Event[]) => async (dispatch: Dispatch, getState: () => RootState) => {
   const { events } = getState();
 
@@ -75,4 +78,10 @@ export const readEvents = (eventsToRead: Event[]) => async (dispatch: Dispatch, 
 
   dispatch(setEvents(totalEvents));
   setLocalStorage(totalEvents);
+};
+
+// поиск
+export const changeSearchEvents = (searchEvents: Event[]) => async (dispatch: Dispatch) => {
+
+  dispatch(setSearchEvents(searchEvents));
 };

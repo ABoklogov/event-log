@@ -7,12 +7,20 @@ interface EventsState {
   items: Event[];
   isLoading: boolean;
   error: string;
+
+  itemsSearch: Event[];
+  loadingSearch: boolean;
+  search: boolean;
 }
 
 const initialState: EventsState = {
   items: [],
   isLoading: false,
   error: '',
+
+  itemsSearch: [], // весь массив для поиска
+  loadingSearch: false,
+  search: false,
 };
 
 export const eventsSlice = createSlice({
@@ -22,6 +30,7 @@ export const eventsSlice = createSlice({
     setEvents: (state, action: PayloadAction<Event[]>) => ({
       ...state,
       items: [...action.payload],
+      search: false,
     }),
     // загрузка
     loadingSetEvents: (state, action: PayloadAction<boolean>) => ({
@@ -33,6 +42,17 @@ export const eventsSlice = createSlice({
       ...state,
       error: action.payload,
     }),
+
+    // поиск
+    setSearchEvents: (state, action: PayloadAction<Event[]>) => ({
+      ...state,
+      items: [...action.payload],
+      search: true,
+    }),
+    setArraySearchEvents: (state, action: PayloadAction<Event[]>) => ({
+      ...state,
+      itemsSearch: [...action.payload],
+    }),
   },
 });
 
@@ -40,4 +60,6 @@ export const {
   setEvents,
   loadingSetEvents,
   errorSetEvents,
+  setSearchEvents,
+  setArraySearchEvents,
 } = eventsSlice.actions;
