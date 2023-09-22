@@ -8,6 +8,7 @@ export const useKeyPress = (keyTarget: string) => {
   const [isKeyPressed, setIsKeyPressed] = useState(false);
 
   const downHandler = (({ key }: Key) => {
+    // console.log("🚀 ~ downHandler ~ key:", key)
     if (key === keyTarget) setIsKeyPressed(true);
   });
   const upHandler = (({ key }: Key) => {
