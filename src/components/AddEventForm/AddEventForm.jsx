@@ -1,22 +1,33 @@
 
 import { useRef } from "react";
 import { useFormik } from 'formik';
+import { useAppDispatch } from 'store/hooks';
+import { addEvent } from 'store/events/eventsOperations';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import { RadioButton } from "primereact/radiobutton";
 import { classNames } from 'primereact/utils';
+import ShortUniqueId from 'short-unique-id';
 import s from './AddEventForm.module.css';
 
 function AddEventForm() {
   const toast = useRef(null);
+  const dispatch = useAppDispatch();
 
-  const show = () => {
-    toast.current.show({ severity: 'success', summary: 'Form Submitted', detail: formik.values.value });
+  const show = ({ importance, equipment, message, responsible }) => {
+    const { randomUUID } = new ShortUniqueId({ length: 10 })
+    const id = randomUUID();
+    const date = new Date().toLocaleString();
+
+    dispatch(addEvent({ id, date, importance, equipment, message, responsible }));
+
+    toast.current.show({ severity: 'success', summary: 'Событие добавлено' });
   };
 
   const formik = useFormik({
     initialValues: {
-      importance: '', // важность
+      importance: 'Низкая', // важность
       equipment: '', // оборудование
       message: '', // сообщение
       responsible: '', // ответственный
@@ -25,11 +36,14 @@ function AddEventForm() {
       let errors = {};
 
       if (!data.equipment) {
-        errors.equipment = 'equipment - Surname is required.';
-      }
+        errors.equipment = 'Поле обязательное для заполнения';
+      };
       if (!data.message) {
-        errors.message = 'message - Surname is required.';
-      }
+        errors.message = 'Поле обязательное для заполнения';
+      };
+      if (!data.responsible) {
+        errors.responsible = 'Поле обязательное для заполнения';
+      };
 
       return errors;
     },
@@ -47,6 +61,11 @@ function AddEventForm() {
 
   return (
     <div className={s.formContainer}>
+
+      <div className='text-2xl font-bold text-900 mb-4'>
+        Добавление события
+      </div>
+
       <div className="card flex justify-content-center">
         <form
           onSubmit={formik.handleSubmit}
@@ -55,8 +74,43 @@ function AddEventForm() {
         >
           <Toast ref={toast} />
 
+          {/* Важность */}
+          <span className='mb-1'>Важность</span>
+          <div className="flex flex-wrap gap-3 mb-4">
+            <div className="flex align-items-center">
+              <RadioButton
+                inputId="importance1"
+                name="importance"
+                value="Низкая"
+                onChange={(e) => formik.setFieldValue('importance', e.value)}
+                checked={formik.values.importance === 'Низкая'}
+              />
+              <label htmlFor="importance1" className="ml-2">Низкая</label>
+            </div>
+            <div className="flex align-items-center">
+              <RadioButton
+                inputId="importance2"
+                name="importance"
+                value="Высокая"
+                onChange={(e) => formik.setFieldValue('importance', e.value)}
+                checked={formik.values.importance === 'Высокая'}
+              />
+              <label htmlFor="importance2" className="ml-2">Высокая</label>
+            </div>
+            <div className="flex align-items-center">
+              <RadioButton
+                inputId="importance3"
+                name="importance"
+                value="Критическая"
+                onChange={(e) => formik.setFieldValue('importance', e.value)}
+                checked={formik.values.importance === 'Критическая'}
+              />
+              <label htmlFor="importance3" className="ml-2">Критическая</label>
+            </div>
+          </div>
+
+          {/* оборудование */}
           <span className="mb-2">
-            {/* оборудование */}
             <span className="p-float-label">
               <InputText
                 id="equipment"
@@ -73,8 +127,8 @@ function AddEventForm() {
             {getFormErrorMessage('equipment')}
           </span>
 
+          {/* сообщение */}
           <span className="mb-2">
-            {/* сообщение */}
             <span className="p-float-label">
               <InputText
                 id="message"
@@ -91,7 +145,27 @@ function AddEventForm() {
 
             {getFormErrorMessage('message')}
           </span>
-          <Button type="submit" label="Submit" />
+
+          {/* ответственный */}
+          <span className="mb-4">
+            <span className="p-float-label">
+              <InputText
+                id="responsible"
+                name="responsible"
+                value={formik.values.responsible}
+                onChange={(e) => {
+                  formik.setFieldValue('responsible', e.target.value);
+                }}
+                style={{ width: '100%' }}
+                className={classNames({ 'p-invalid': isFormFieldInvalid('responsible') })}
+              />
+              <label htmlFor="input_value">ответственный</label>
+            </span>
+
+            {getFormErrorMessage('responsible')}
+          </span>
+
+          <Button type="submit" label="Добавить" />
         </form>
       </div>
     </div>

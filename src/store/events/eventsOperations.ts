@@ -62,3 +62,13 @@ export const readEvents = (eventsToRead: Event[]) => async (dispatch: Dispatch, 
   dispatch(setEvents(totalEvents));
   setLocalStorage(totalEvents, 'events');
 };
+
+// добавление события
+export const addEvent = (event: Event) => async (dispatch: Dispatch, getState: () => RootState) => {
+  const { events } = getState();
+
+  const totalEvents = [...events.items, event];
+
+  dispatch(setEvents(totalEvents));
+  setLocalStorage(totalEvents, 'events');
+};

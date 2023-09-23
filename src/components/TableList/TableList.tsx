@@ -48,7 +48,7 @@ function TableList({ events }: Props) {
       <Toast ref={toast} />
       <DataTable
         value={events}
-        size={'small'}
+        size='small'
         dataKey="id"
         removableSort
         tableStyle={{ minWidth: '50rem' }}

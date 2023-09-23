@@ -3,7 +3,7 @@ import Event from 'interfaces/Events.interface';
 const events: Event[] = [
   {
     id: '1',
-    date: '2023-08-27T00:00:00',
+    date: '23.09.2023, 10:26:55',
     importance: 'Высокая',
     equipment: 'Вегас',
     message: 'Сервер Vegas недоступен',
@@ -12,7 +12,7 @@ const events: Event[] = [
   },
   {
     id: '2',
-    date: '2023-08-28T00:00:00',
+    date: '23.09.2023, 20:26:55',
     importance: 'Высокая',
     equipment: 'Коммутатор',
     message: 'Потеряно сетевое соединение',
@@ -21,7 +21,7 @@ const events: Event[] = [
   },
   {
     id: '3',
-    date: '2023-08-29T00:00:00',
+    date: '21.09.2023, 20:26:55',
     importance: 'Низкая',
     equipment: 'Люк',
     message: 'Открыта крышка',
@@ -30,7 +30,7 @@ const events: Event[] = [
   },
   {
     id: '4',
-    date: '2023-08-23T00:00:00',
+    date: '23.04.2023, 20:26:55',
     importance: 'Высокая',
     equipment: 'ИБП',
     message: 'Низкий заряд батареи',
@@ -39,7 +39,7 @@ const events: Event[] = [
   },
   {
     id: '5',
-    date: '2023-08-22T00:00:00',
+    date: '23.09.2023, 20:26:00',
     importance: 'Критическая',
     equipment: 'Трансформатор',
     message: 'Недостаточное количество масла',
@@ -48,7 +48,7 @@ const events: Event[] = [
   },
   {
     id: '6',
-    date: '2023-08-24T00:00:00',
+    date: '23.03.2023, 20:26:55',
     importance: 'Критическая',
     equipment: 'ЛВС',
     message: 'Обрыв силового кабеля',
@@ -57,7 +57,7 @@ const events: Event[] = [
   },
   {
     id: '7',
-    date: '2023-08-12T00:00:00',
+    date: '23.09.2023, 11:26:55',
     importance: 'Высокая',
     equipment: 'Вегас',
     message: 'Отсутствует подтверждение пуска в работу',

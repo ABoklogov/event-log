@@ -57,11 +57,12 @@ function FormSearch() {
     <div className={s.formSearch}>
       <div className="p-inputgroup">
         <AutoComplete
-          className={s.inputSearch}
+          // className={s.inputSearch}
           value={value}
           suggestions={items}
           completeMethod={search}
           onChange={onChangeSearch}
+          style={{ width: '400px' }}
         />
 
         {events.search ? (
