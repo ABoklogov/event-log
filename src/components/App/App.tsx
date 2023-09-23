@@ -3,14 +3,18 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { fetchEvents } from 'store/events/eventsOperations';
 import { calcTheView } from 'store/view/viewOperations';
+import { toggleSidbar } from 'store/view/viewSlice';
 import Header from 'components/Header';
 import Container from 'components/Container';
 import Main from 'components/Main';
+import AddEventForm from 'components/AddEventForm';
 import { Toast } from 'primereact/toast';
+import { Button } from 'primereact/button';
+import { Sidebar } from 'primereact/sidebar';
 import s from './App.module.css';
 
 function App() {
-  const { events } = useAppSelector((state) => state);
+  const { events, view } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const toast = useRef<Toast>(null);
 
@@ -39,6 +43,20 @@ function App() {
         </div>
       </Suspense>
 
+      <Sidebar
+        visible={view.sidebar}
+        onHide={() => dispatch(toggleSidbar(false))}
+        className="w-full md:w-20rem lg:w-30rem"
+        position="right"
+      >
+        <AddEventForm />
+      </Sidebar>
+      <Button
+        icon="pi pi-plus"
+        rounded
+        style={{ position: 'fixed', right: '50px', bottom: '50px' }}
+        onClick={() => dispatch(toggleSidbar(true))}
+      />
       <Toast ref={toast} />
     </Container>
   );
