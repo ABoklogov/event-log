@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
-// import type { RootState } from 'store';
 import Event from 'interfaces/Events.interface';
 
 interface EventsState {
@@ -8,8 +7,7 @@ interface EventsState {
   isLoading: boolean;
   error: string;
 
-  itemsSearch: Event[];
-  loadingSearch: boolean;
+  querySearch: string;
   search: boolean;
 }
 
@@ -18,8 +16,7 @@ const initialState: EventsState = {
   isLoading: false,
   error: '',
 
-  itemsSearch: [], // весь массив для поиска
-  loadingSearch: false,
+  querySearch: '',
   search: false,
 };
 
@@ -30,7 +27,6 @@ export const eventsSlice = createSlice({
     setEvents: (state, action: PayloadAction<Event[]>) => ({
       ...state,
       items: [...action.payload],
-      search: false,
     }),
     // загрузка
     loadingSetEvents: (state, action: PayloadAction<boolean>) => ({
@@ -44,14 +40,15 @@ export const eventsSlice = createSlice({
     }),
 
     // поиск
-    setSearchEvents: (state, action: PayloadAction<Event[]>) => ({
+    removeSearch: (state) => ({
       ...state,
-      items: [...action.payload],
-      search: true,
+      querySearch: '',
+      search: false,
     }),
-    setArraySearchEvents: (state, action: PayloadAction<Event[]>) => ({
+    setQuerySearch: (state, action: PayloadAction<string>) => ({
       ...state,
-      itemsSearch: [...action.payload],
+      querySearch: action.payload,
+      search: true,
     }),
   },
 });
@@ -60,6 +57,6 @@ export const {
   setEvents,
   loadingSetEvents,
   errorSetEvents,
-  setSearchEvents,
-  setArraySearchEvents,
+  removeSearch,
+  setQuerySearch,
 } = eventsSlice.actions;

@@ -2,36 +2,20 @@ import { Dispatch } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
 import Event from 'interfaces/Events.interface';
 import { getEvents } from "services/api";
+import { setLocalStorage } from 'helpers/setLocalStorage';
+import { getLocalStorage } from 'helpers/getLocalStorage';
 import {
   setEvents,
-  setSearchEvents,
   loadingSetEvents,
   errorSetEvents,
 } from './eventsSlice';
 
-// запись в локальное хранилище
-const setLocalStorage = (value: Event[]) => {
-  const string = JSON.stringify(value);
-  localStorage.setItem('events', string);
-};
-
-// получение из локального хранилища
-const getLocalStorage = () => {
-  const string = localStorage.getItem('events');
-  return string ? JSON.parse(string) : null;
-};
-
 // получение всех задач
-export const fetchEvents = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  // const { events } = getState();
-
+export const fetchEvents = () => async (dispatch: Dispatch) => {
   try {
-    // if (events.items.length > 0) {
-    //   return
-    // } else {
     dispatch(loadingSetEvents(true));
     // получаем данные из локального хранилища и записываем их в state
-    const localEvents = getLocalStorage();
+    const localEvents = getLocalStorage<Event[]>('events');
 
     if (localEvents === null) {
       const data = await getEvents();
@@ -43,7 +27,7 @@ export const fetchEvents = () => async (dispatch: Dispatch, getState: () => Root
         dispatch(errorSetEvents(''));
 
         dispatch(setEvents(data));
-        setLocalStorage(data);
+        setLocalStorage(data, 'events');
       };
     } else {
       dispatch(loadingSetEvents(false));
@@ -51,7 +35,6 @@ export const fetchEvents = () => async (dispatch: Dispatch, getState: () => Root
 
       dispatch(setEvents(localEvents));
     };
-    // };
   } catch (error) {
     if (error instanceof Error) {
       dispatch(loadingSetEvents(false));
@@ -77,11 +60,5 @@ export const readEvents = (eventsToRead: Event[]) => async (dispatch: Dispatch, 
   });
 
   dispatch(setEvents(totalEvents));
-  setLocalStorage(totalEvents);
-};
-
-// поиск
-export const changeSearchEvents = (searchEvents: Event[]) => async (dispatch: Dispatch) => {
-
-  dispatch(setSearchEvents(searchEvents));
+  setLocalStorage(totalEvents, 'events');
 };

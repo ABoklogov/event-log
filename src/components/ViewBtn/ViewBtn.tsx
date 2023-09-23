@@ -1,6 +1,6 @@
 import { Button } from 'primereact/button';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
-import { setView } from 'store/view/viewSlice';
+import { changeView } from 'store/view/viewOperations';
 
 const styleNotActive = {
   backgroundColor: 'var(--highlight-bg)',
@@ -17,13 +17,13 @@ function ViewBtn() {
         label="Таблица"
         icon="pi pi-list"
         style={view === 'table' ? undefined : styleNotActive}
-        onClick={() => dispatch(setView('table'))}
+        onClick={() => dispatch(changeView('table'))}
       />
       <Button
         label="Карточки"
         icon="pi pi-th-large"
         style={view === 'card' ? undefined : styleNotActive}
-        onClick={() => dispatch(setView('card'))}
+        onClick={() => dispatch(changeView('card'))}
       />
     </span>
   );

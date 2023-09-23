@@ -1,41 +1,29 @@
 import { useState, useRef } from 'react';
 import { AutoComplete, AutoCompleteCompleteEvent, AutoCompleteChangeEvent } from 'primereact/autocomplete';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
-import { changeSearchEvents, fetchEvents } from 'store/events/eventsOperations';
-import Event from 'interfaces/Events.interface';
+import { searchEvents } from 'helpers/searchEvents';
+import { setQuerySearch, removeSearch } from 'store/events/eventsSlice';
 import s from './FormSearch.module.css';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 
-type FilterEvents = (query: string, items: Event[]) => Event[];
 type OnChangeSearch = (e: AutoCompleteChangeEvent) => void;
 
 function FormSearch() {
   const { events } = useAppSelector((state) => state);
   const [value, setValue] = useState('');
-  const [searchEvents, setSearchEvents] = useState<Event[]>([]); //найденные объекты задач
   const [items, setItems] = useState<string[]>([]); // массив найденных строк
   const dispatch = useAppDispatch();
   const toast = useRef<Toast>(null);
 
-  console.log("🚀 ~ FormSearch ~ searchEvents:", searchEvents)
-  console.log("🚀 ~ FormSearch ~ value:", value)
-
   const search = (event: AutoCompleteCompleteEvent) => {
-    // const searchArray = events.items.filter(({ message }) => message.toLowerCase().includes(event.query.toLowerCase()));
-    const searchArray = filterEvents(event.query, events.itemsSearch);
-
-    setSearchEvents([...searchArray]);
+    const searchArray = searchEvents(event.query, events.items);
     setItems([...searchArray].map(el => el.message));
-  };
-
-  const filterEvents: FilterEvents = (query, items) => {
-    return items.filter(({ message }) => message.toLowerCase().includes(query.toLowerCase()));
   };
 
   const dispatchSearchEvents = () => {
     if (value) {
-      dispatch(changeSearchEvents(searchEvents))
+      dispatch(setQuerySearch(value));
     } else {
       showToast();
     };
@@ -49,7 +37,7 @@ function FormSearch() {
   };
 
   const clearInputSearch = () => {
-    dispatch(fetchEvents());
+    dispatch(removeSearch());
     setValue('');
   };
 
@@ -59,12 +47,10 @@ function FormSearch() {
         setValue(e.value);
       } else {
         setValue(e.value);
-        const searchArray = filterEvents(e.value, events.itemsSearch);
-        setSearchEvents([...searchArray]);
+        const searchArray = searchEvents(e.value, events.items);
         setItems([...searchArray].map(el => el.message));
-      }
-    }
-    console.log(e);
+      };
+    };
   };
 
   return (

@@ -2,6 +2,7 @@ import { Suspense, useEffect, useRef } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { fetchEvents } from 'store/events/eventsOperations';
+import { calcTheView } from 'store/view/viewOperations';
 import Header from 'components/Header';
 import Container from 'components/Container';
 import Main from 'components/Main';
@@ -15,6 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchEvents());
+    dispatch(calcTheView());
   }, []);
 
   useEffect(() => {
