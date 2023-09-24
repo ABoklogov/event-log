@@ -22,7 +22,6 @@
 .contentSubBox,
 .contentFooter {
   display: flex;
-  flex-direction: row;
   width: 100%;
 }
 
@@ -38,7 +37,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
 }
 
 .label,
@@ -53,4 +51,45 @@
 
 .value {
   color: #000000;
+}
+
+@media screen and (min-width: 320px) {
+  .contentAvatar {
+    width: 45%;
+  }
+
+  .contentSubBox,
+  .contentFooter {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 426px) {
+
+  .contentSubBox,
+  .contentFooter {
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 600px) {
+
+  .contentSubBox,
+  .contentFooter {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .contentAvatar {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+
+  .contentSubBox,
+  .contentFooter {
+    flex-direction: row;
+  }
 }

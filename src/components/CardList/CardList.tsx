@@ -16,13 +16,12 @@ interface Props {
 function CardList({ events }: Props) {
   const [selectedEvents, setSelectedEvents] = useState<Event[]>([]);
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5);
+  const [rows, setRows] = useState(6);
   const isCmdPressed = useKeyPress('Meta');
   const isControlPressed = useKeyPress('Control');
   const isSpacePressed = useKeyPress(' ');
   const dispatch = useAppDispatch();
   const toast = useRef<Toast>(null);
-  console.log("🚀 ~ CardList ~ selectedEvents:", selectedEvents)
 
   // при нажитии клавиши 'space' отмечаем сообщения на прочтение
   useEffect(() => {
@@ -85,7 +84,7 @@ function CardList({ events }: Props) {
         first={first}
         rows={rows}
         totalRecords={events.length}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[6, 12, 24]}
         onPageChange={onPageChange}
       />
     </>

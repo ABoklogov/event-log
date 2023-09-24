@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAppDispatch } from 'store/hooks';
 import { readEvents } from 'store/events/eventsOperations';
 import { DataTable, DataTableSelectionMultipleChangeEvent } from 'primereact/datatable';
+import s from './TableList.module.css';
 import { Column } from 'primereact/column';
 import { Badge } from 'primereact/badge';
 import { useKeyPress } from 'hooks/useKeyPress';
@@ -18,7 +19,6 @@ function TableList({ events }: Props) {
   const dispatch = useAppDispatch();
   const isSpacePressed = useKeyPress(' ');
   const toast = useRef<Toast>(null);
-  console.log("🚀 ~ TableList :", selectedEvents)
 
   // при нажитии клавиши 'space' отмечаем сообщения на прочтение
   useEffect(() => {
@@ -57,8 +57,9 @@ function TableList({ events }: Props) {
         onSelectionChange={onSelectionChange}
         dragSelection
         paginator
-        rows={5}
-        rowsPerPageOptions={[5, 10, 25]}
+        rows={6}
+        rowsPerPageOptions={[6, 12, 24]}
+        className={s.tableList}
       >
         <Column field="date" header="Дата" sortable style={{ width: '20%' }}></Column>
         <Column field="importance" header="Важность" sortable style={{ width: '10%' }}></Column>

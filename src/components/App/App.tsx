@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { fetchEvents } from 'store/events/eventsOperations';
@@ -37,11 +37,9 @@ function App() {
   return (
     <Container>
       <Header />
-      <Suspense fallback={<ProgressSpinner />}>
-        <div className={s.mainContainer}>
-          <Main />
-        </div>
-      </Suspense>
+      <div className={s.mainContainer}>
+        {events.isLoading ? <ProgressSpinner /> : <Main />}
+      </div>
 
       <Sidebar
         visible={view.sidebar}

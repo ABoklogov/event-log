@@ -27,6 +27,6 @@ function ViewBtn() {
       />
     </span>
   );
-}
+};
 
 export default ViewBtn;

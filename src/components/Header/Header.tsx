@@ -9,6 +9,6 @@ function Header() {
       <FormSearch />
     </div>
   );
-}
+};
 
 export default Header;

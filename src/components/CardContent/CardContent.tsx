@@ -63,6 +63,6 @@ function CardContent({
       </div>
     </Card>
   );
-}
+};
 
 export default CardContent;

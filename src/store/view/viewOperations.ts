@@ -5,7 +5,7 @@ import { getLocalStorage } from 'helpers/getLocalStorage';
 import { setView } from './viewSlice';
 
 // получение view
-export const calcTheView = () => async (dispatch: Dispatch, getState: () => RootState) => {
+export const calcTheView = () => async (dispatch: Dispatch) => {
   // получаем данные из локального хранилища
   const localView = getLocalStorage<'table' | 'card'>('view');
 

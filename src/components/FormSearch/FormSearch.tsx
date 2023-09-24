@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { AutoComplete, AutoCompleteCompleteEvent, AutoCompleteChangeEvent } from 'primereact/autocomplete';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { useWidth } from 'hooks/useWidth';
 import { searchEvents } from 'helpers/searchEvents';
 import { setQuerySearch, removeSearch } from 'store/events/eventsSlice';
 import s from './FormSearch.module.css';
@@ -15,6 +16,7 @@ function FormSearch() {
   const [items, setItems] = useState<string[]>([]); // массив найденных строк
   const dispatch = useAppDispatch();
   const toast = useRef<Toast>(null);
+  const width = useWidth();
 
   const search = (event: AutoCompleteCompleteEvent) => {
     const searchArray = searchEvents(event.query, events.items);
@@ -54,15 +56,17 @@ function FormSearch() {
   };
 
   return (
-    <div className={s.formSearch}>
+    <div
+      className={s.formSearch}
+      style={width < 992 ? { width: '100%', marginTop: '20px' } : undefined}
+    >
       <div className="p-inputgroup">
         <AutoComplete
-          // className={s.inputSearch}
           value={value}
           suggestions={items}
           completeMethod={search}
           onChange={onChangeSearch}
-          style={{ width: '400px' }}
+          style={width >= 992 ? { width: '400px' } : undefined}
         />
 
         {events.search ? (
@@ -81,6 +85,6 @@ function FormSearch() {
       <Toast ref={toast} />
     </div>
   );
-}
+};
 
 export default FormSearch;

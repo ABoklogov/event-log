@@ -6,6 +6,7 @@ import { searchEvents } from 'helpers/searchEvents';
 function Main() {
   const { view, events } = useAppSelector((state) => state);
 
+  // определяем какой массив карточек показывать 
   const totalEvents = !events.search ? events.items : searchEvents(events.querySearch, events.items);
 
   return (
